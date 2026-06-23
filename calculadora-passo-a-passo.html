@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+</head>
+<body>
+
+    <input type="text" id="display">
+    
+    <div>
+        <button onclick="limpar()">C</button>
+    </div>
+    <div>
+        <button onclick="colocarNumero(7)">7</button>
+        <button onclick="colocarNumero(8)">8</button>
+        <button onclick="colocarNumero(9)">9</button>
+        <button onclick="colocarNumero('/')">/</button>
+    </div>
+    <div>
+        <button onclick="colocarNumero(4)">4</button>
+        <button onclick="colocarNumero(5)">5</button>
+        <button onclick="colocarNumero(6)">6</button>
+        <button onclick="colocarNumero('*')">*</button>
+    </div>
+    <div>
+        <button onclick="colocarNumero(1)">1</button>
+        <button onclick="colocarNumero(2)">2</button>
+        <button onclick="colocarNumero(3)">3</button>
+        <button onclick="colocarNumero('-')">-</button>
+    </div>
+    <div>
+        <button onclick="colocarNumero(0)">0</button>
+        <button onclick="colocarNumero('.')">.</button>
+        <button onclick="calcular()">=</button>
+        <button onclick="colocarNumero('+')">+</button>
+    </div>
+
+    <script>
+        function colocarNumero(numero) {
+            let tela = document.getElementById("display");
+            tela.value = tela.value + numero;
+        }
+
+       function calcular() {
+    let tela = document.getElementById("display");
+    
+    try {
+        // Tenta calcular a expressão
+        tela.value = eval(tela.value);
+    } catch (erro) {
+        // Se der erro, limpa a tela e mostra "Erro"
+        tela.value = "Erro";
+    }
+}
+
+        function limpar() {
+            let tela = document.getElementById("display");
+            tela.value = "";
+        }
+    </script>
+
+</body>
+</html>
