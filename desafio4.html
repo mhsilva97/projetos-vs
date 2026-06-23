@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Desafio 4</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        #resultado { font-size: 24px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Classificador de Idade</h1>
+    <button onclick="classificar()">Classificar Idade</button>
+    <p id="resultado"></p>
+
+    <script>
+        function classificar() {
+            let idadeTexto = prompt("Qual é a sua idade?");
+            let idade = Number(idadeTexto);
+            
+            let resultado = document.getElementById("resultado");
+            
+            if (idade <= 12) {
+                resultado.innerText = "Criança";
+                resultado.style.color = "blue";
+            } else if (idade <= 17) {
+                resultado.innerText = "Adolescente";
+                resultado.style.color = "purple";
+            } else if (idade <= 59) {
+                resultado.innerText = "Adulto";
+                resultado.style.color = "green";
+            } else {
+                resultado.innerText = "Idoso";
+                resultado.style.color = "orange";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meu Primeiro Projeto</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        #mensagem { font-size: 24px; color: blue; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Olá, Mundo de Novo!</h1>
+    <p id="mensagem">Clique no botão abaixo...</p>
+    <button onclick="mudarTexto()">Clique em Mim</button>
+
+    <script>
+        // Aqui entra o nosso JavaScript
+        function mudarTexto() {
+            let elemento = document.getElementById("mensagem");
+            elemento.innerText = "Meu nome e Murilo";
+            elemento.style.color = "red";
+        }
+    </script>
+
+</body>
+</html>

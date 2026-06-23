@@ -1,0 +1,12 @@
+<button onclick="apresentar()">Me apresente</button>
+<p id="resultado"></p>
+
+<script>
+function apresentar() {
+    let nome = prompt("Qual é o seu nome?");
+    let idade = prompt("Qual é a sua idade?");
+    
+    let resultado = document.getElementById("resultado");
+    resultado.innerText = "Seja bem-vindo (a) " + nome + "! Você tem " + idade + " anos e esta aprendendo javaScript!";
+}
+</script>
