@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <style>
+        .concluida {
+            text-decoration: line-through;
+            color: gray;
+        }
+        
+        span {
+            cursor: pointer;
+        }
+        
+        #contador {
+            color: #666;
+            font-style: italic;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📝 Lista de Tarefas</h1>
+
+    <input type="text" id="nova-tarefa" placeholder="Digite uma nova tarefa...">
+    <button id="adicionar" onclick="adicionarTarefa()">Adicionar</button>
+
+    <ul id="lista"></ul>
+    
+    <p id="contador">Nenhuma tarefa ainda</p>
+
+    <script>
+        // FUNÇÃO 1: Adicionar tarefa
+        function adicionarTarefa() {
+            let input = document.getElementById("nova-tarefa");
+            let texto = input.value;
+
+            if (texto === "") {
+                alert("Por favor, digite uma tarefa!");
+                return; 
+            }
+
+            let li = document.createElement("li");
+            
+            let spanTexto = document.createElement("span");
+            spanTexto.innerText = texto;
+            
+            spanTexto.onclick = function() {
+                spanTexto.classList.toggle("concluida");
+                atualizarContador();
+                salvarTarefas();
+            };
+            
+            li.appendChild(spanTexto);
+
+            let btnExcluir = document.createElement("button");
+            btnExcluir.innerText = "X";
+            
+            btnExcluir.onclick = function() {
+                li.remove();
+                atualizarContador();
+                salvarTarefas();
+            };
+
+            li.appendChild(btnExcluir);
+
+            let lista = document.getElementById("lista");
+            lista.appendChild(li);
+
+            input.value = "";
+            atualizarContador();
+            salvarTarefas();
+        }
+
+        // FUNÇÃO 2: Atualizar contador
+        function atualizarContador() {
+            let todosOsLi = document.querySelectorAll("#lista li");
+            let total = todosOsLi.length;
+            
+            let concluidos = document.querySelectorAll("#lista .concluida").length;
+            
+            let contador = document.getElementById("contador");
+            
+            if (total === 0) {
+                contador.innerText = "Nenhuma tarefa ainda";
+            } else {
+                contador.innerText = concluidos + " de " + total + " tarefas concluídas";
+            }
+        }
+
+        // FUNÇÃO 3: Salvar tarefas no navegador
+        function salvarTarefas() {
+            let todosOsLi = document.querySelectorAll("#lista li");
+            let arrayTarefas = [];
+            
+            todosOsLi.forEach(function(li) {
+                let span = li.querySelector("span");
+                let tarefa = {
+                    texto: span.innerText,
+                    concluida: span.classList.contains("concluida")
+                };
+                arrayTarefas.push(tarefa);
+            });
+            
+            localStorage.setItem("tarefas", JSON.stringify(arrayTarefas));
+        }
+
+        // FUNÇÃO 4: Carregar tarefas do navegador
+        function carregarTarefas() {
+            let dadosSalvos = localStorage.getItem("tarefas");
+            
+            if (dadosSalvos) {
+                let arrayTarefas = JSON.parse(dadosSalvos);
+                
+                arrayTarefas.forEach(function(tarefa) {
+                    let li = document.createElement("li");
+                    
+                    let spanTexto = document.createElement("span");
+                    spanTexto.innerText = tarefa.texto;
+                    if (tarefa.concluida) {
+                        spanTexto.classList.add("concluida");
+                    }
+                    spanTexto.onclick = function() {
+                        spanTexto.classList.toggle("concluida");
+                        salvarTarefas();
+                        atualizarContador();
+                    };
+                    
+                    li.appendChild(spanTexto);
+                    
+                    let btnExcluir = document.createElement("button");
+                    btnExcluir.innerText = "X";
+                    btnExcluir.onclick = function() {
+                        li.remove();
+                        salvarTarefas();
+                        atualizarContador();
+                    };
+                    li.appendChild(btnExcluir);
+                    
+                    let lista = document.getElementById("lista");
+                    lista.appendChild(li);
+                });
+            }
+        }
+
+        // Quando a página abrir, carrega as tarefas salvas
+        carregarTarefas();
+        atualizarContador();
+    </script>
+    
+</body>
+</html>
